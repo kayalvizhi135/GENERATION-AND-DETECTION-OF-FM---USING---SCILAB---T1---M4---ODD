@@ -68,7 +68,49 @@ The circuits used to generate a frequency modulation must vary the frequency of 
 
 ---
 
-## PROCEDURE
+## CODE
+
+## Pclc;
+clear;
+close;
+
+// Time
+t = 0:0.00001:0.01;
+
+// Message signal
+Am = 2;
+fm = 1000;
+m = Am*sin(2*%pi*fm*t);
+
+// Carrier signal
+Ac = 1;
+fc = 10000;
+c = Ac*cos(2*%pi*fc*t);
+
+// FM generation
+kf = 5000;
+fm_signal = Ac*cos(2*%pi*fc*t + kf/fm*sin(2*%pi*fm*t));
+
+// Plot Message Signal
+subplot(3,1,1);
+plot(t,m);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Message Signal");
+
+// Plot Carrier Signal
+subplot(3,1,2);
+plot(t,c);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("Carrier Signal");
+
+// Plot FM Signal
+subplot(3,1,3);
+plot(t,fm_signal);
+xlabel("Time (s)");
+ylabel("Amplitude");
+title("FM Modulated Signal");ROCEDURE
 
 * Refer Algorithms and write code for the experiment.
 * Open SCILAB in System.
@@ -79,15 +121,15 @@ The circuits used to generate a frequency modulation must vary the frequency of 
 * Verify the generated waveform using Tabulation and Model Waveform.
 
 ---
-## TABLE:
 
-<img width="1599" height="899" alt="image" src="https://github.com/user-attachments/assets/4c7fec07-2d15-4e6d-87ab-1a13f2335fff" />
+## TABULATION
+<img width="1600" height="821" alt="image" src="https://github.com/user-attachments/assets/6ee005ac-171f-4380-952d-2d33b3999d07" />
 
+## CALCULATION
+<img width="1080" height="1374" alt="image" src="https://github.com/user-attachments/assets/f5e262b9-f3bc-4a70-b937-abe9869dcfd9" />
 
-## MODEL GRAPH
+## OUTPUT
+<img width="1110" height="634" alt="image" src="https://github.com/user-attachments/assets/ba90c5cf-da82-4303-9aaf-9dcc1858073f" />
 
-<img width="1599" height="899" alt="image" src="https://github.com/user-attachments/assets/1f88a12b-cda4-42e7-9445-b95b086702a1" />
-
-##RESULT: Thus the frequency modulation and demodulation is successfully done and the output is experimentally verified. 
-
-
+## RESULT
+Successfully generated frequency Modulation and Demodulation using SCILAB and to observe and measure the frequency deviation and the modulation index of FM.
