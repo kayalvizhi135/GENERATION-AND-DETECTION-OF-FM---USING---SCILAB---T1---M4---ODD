@@ -1,116 +1,101 @@
-# GENERATION-AND-DETECTION-OF-FM---USING---SCILAB---T1---M4---ODD
-# FREQUENCY MODULATION AND DEMODULATION
+# Generation-and-detection-of-AM-using-SCILAB---T1---M4---ODD
+# AIM
 
-## AIM
+To generate and detect the amplitude modulation and demodulation using SCILAB and to calculate modulation index of AM.
 
-To write a program for Frequency Modulation and Demodulation using SCILAB and to observe and measure the frequency deviation and the modulation index of FM.
-
----
-
-## EQUIPMENTS REQUIRED
+# EQUIPMENTS REQUIRED
 
 * Computer with i3 Processor
 * SCI LAB
 
----
+# THEORY
 
-## THEORY
 
-Frequency modulation is a type of modulation in which the frequency of the high frequency (carrier) is varied in accordance with the instantaneous value of the modulating signal.
+Modulation can be defined as the process by which the characteristics of carrier wave are varied in accordance with the modulating wave (signal). Modulation is performed in a transmitter by a circuit called a modulator.
 
-### FREQUENCY DEVIATION Δf and MODULATION INDEX mf:
+Need for modulation is as follows:
 
-The frequency deviation **Δf** represents the maximum shift between the modulated signal frequency, over and under the frequency of the carrier.
+* Avoid mixing of signals
+* Reduction in antenna height
+* Long distance communication
+* Multiplexing
+* Improve the quality of reception
+* Ease of radiation
 
-We define modulation index **mf** the ratio between **Δf** and the modulating frequency.
+Amplitude Modulation is the process of changing the amplitude of a relatively high frequency carrier signal in proportion with the instantaneous value of the modulating signal. The output waveform contains all the frequencies that make up the AM signal and is used to transport the information through the system. Therefore the shape of the modulated wave is called the AM envelope. With no modulating signal the output waveform is simply the carrier signal. Coefficient of modulation is a term used to describe the amount of amplitude change present in an AM waveform. There are three degrees of modulation available based on value of modulation index.
 
-$$
-m_f = \frac{\Delta f}{f_m}
-$$
+1. **Under modulation:** `m < 1`, `Em < Ec`
+2. **Critical modulation:** `m = 1`, `Em = Ec`
+3. **Over modulation:** `m > 1`, `Em > Ec`
 
----
+**Note:** Keep all the switch faults in off position.
 
-## FREQUENCY MODULATION GENERATION
+# ALGORITHM
 
-The circuits used to generate a frequency modulation must vary the frequency of a high frequency signal (carrier) as function of the amplitude of a low frequency signal (modulating signal). In practice there are two main methods used to generate FM.
+### 1. Define Parameters
 
----
+First, define the parameters for your signals:
 
-## ALGORITHM
+* Carrier frequency (fc)
+* Modulating signal frequency (fm)
+* Sampling frequency (Fs)
+* Duration of the signal (T)
 
-### 1. Define Parameters:
+### 2. Create Time Vector
 
-* **Fs:** Sampling frequency.
-* **T:** Duration of the signal.
-* **Fc:** Carrier frequency.
-* **Fm:** Frequency of the modulating signal.
-* **Beta:** Modulation index, which controls the extent of frequency deviation.
+Create a time vector based on the sampling frequency and duration.
 
-### 2. Generate Signals:
+### 3. Create Modulating Signal
 
-* **modulating_signal:** Sinusoidal signal used for modulation.
-* **carrier_signal:** The high-frequency carrier signal.
-* **modulated_signal:** FM modulated signal calculated by varying the carrier frequency according to the modulating signal.
+Define the modulating signal (message signal).
 
-### 3. FM Modulation:
+### 4. Create Carrier Signal
 
-* **Modulated_signal** is obtained by modulating the carrier signal with the modulating signal.
+Define the carrier signal.
 
-### 4. FM Demodulation:
+### 5. Perform Amplitude Modulation
 
-* **Differentiation:** Computes the derivative of the modulated signal to extract frequency variations.
-* **Envelope Detection:** Takes the absolute value to retrieve the envelope of the signal.
-* **Low-pass Filtering:** Applies a Butterworth low-pass filter to smooth the envelope and recover the original modulating signal.
+Multiply the carrier signal by the modulating signal plus 1 (to ensure the modulation depth).
 
-### 5. Visualization:
+### 6. Plot the Signals
 
-* Plots the modulating signal, carrier signal, FM modulated signal, and demodulated signal for analysis.
+Visualize the modulating, carrier, and modulated signals.
 
----
+### 7. Demodulate the AM Signal
 
-## CODE
+To demodulate, you can use envelope detection. One way is to rectify the signal and then apply a low-pass filter.
 
-## Pclc;
-clear;
-close;
+### 8. Plot the Demodulated Signal
 
-// Time
-t = 0:0.00001:0.01;
+Visualize the demodulated signal.
 
-// Message signal
-Am = 2;
-fm = 1000;
-m = Am*sin(2*%pi*fm*t);
+### 9. Compare Signals
 
-// Carrier signal
-Ac = 1;
-fc = 10000;
-c = Ac*cos(2*%pi*fc*t);
+Compare the original modulating signal with the demodulated signal.
 
-// FM generation
-kf = 5000;
-fm_signal = Ac*cos(2*%pi*fc*t + kf/fm*sin(2*%pi*fm*t));
-
-// Plot Message Signal
+# Scilab Code:
+~~~
+Em = 20;
+Fm = 200;
+Ec = 40;
+Fc = 2000;
+Fs = 20000;
+t = 0:1/Fs:3/Fm;
+am = Em*sin(2*%pi*Fm*t);
 subplot(3,1,1);
-plot(t,m);
-xlabel("Time (s)");
-ylabel("Amplitude");
+plot(t,am);
 title("Message Signal");
-
-// Plot Carrier Signal
+C = Ec*sin(2*%pi*Fc*t);
 subplot(3,1,2);
-plot(t,c);
-xlabel("Time (s)");
-ylabel("Amplitude");
+plot(t,C);
 title("Carrier Signal");
-
-// Plot FM Signal
+Eam = (Ec+am).*cos(2*%pi*Fc*t);
 subplot(3,1,3);
-plot(t,fm_signal);
-xlabel("Time (s)");
-ylabel("Amplitude");
-title("FM Modulated Signal");ROCEDURE
+plot(t,Eam);
+title("AM wave");
+~~~
+
+# PROCEDURE
 
 * Refer Algorithms and write code for the experiment.
 * Open SCILAB in System.
@@ -120,16 +105,17 @@ title("FM Modulated Signal");ROCEDURE
 * If any Error, correct it in code and execute again.
 * Verify the generated waveform using Tabulation and Model Waveform.
 
----
+# TABULATION
 
-## TABULATION
-<img width="1600" height="821" alt="image" src="https://github.com/user-attachments/assets/6ee005ac-171f-4380-952d-2d33b3999d07" />
+<img width="1110" height="684" alt="image" src="https://github.com/user-attachments/assets/2ac65eb4-210d-40aa-b9bb-5b162364c683" />
 
-## CALCULATION
-<img width="1080" height="1374" alt="image" src="https://github.com/user-attachments/assets/f5e262b9-f3bc-4a70-b937-abe9869dcfd9" />
 
-## OUTPUT
-<img width="1110" height="634" alt="image" src="https://github.com/user-attachments/assets/ba90c5cf-da82-4303-9aaf-9dcc1858073f" />
+# CALCULATION
 
-## RESULT
-Successfully generated frequency Modulation and Demodulation using SCILAB and to observe and measure the frequency deviation and the modulation index of FM.
+<img width="576" height="730" alt="image" src="https://github.com/user-attachments/assets/eebd7777-e31e-45e8-bce3-81b6fa42d5a3" />
+
+# Result:
+
+The AM signal is generated Successfully and the given code is verified.
+
+
